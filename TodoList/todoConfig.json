@@ -1,0 +1,82 @@
+[
+  {
+    "Id": 1,
+    "Title": "Buy groceries",
+    "Description": "Milk, Bread, Cheese, Eggs",
+    "IsCompleted": false,
+    "CreatedAt": "2025-09-29T14:30:00Z",
+    "CompletedAt": null
+  },
+  {
+    "Id": 2,
+    "Title": "Finish project report",
+    "Description": "Complete the final section and proofread",
+    "IsCompleted": false,
+    "CreatedAt": "2025-09-28T11:00:00Z",
+    "CompletedAt": null
+  },
+  {
+    "Id": 3,
+    "Title": "Call the doctor",
+    "Description": "Schedule an appointment for next week",
+    "IsCompleted": true,
+    "CreatedAt": "2025-09-27T09:15:00Z",
+    "CompletedAt": "2025-09-27T10:00:00Z"
+  },
+  {
+    "Id": 4,
+    "Title": "Go for a run",
+    "Description": "30 minutes in the park",
+    "IsCompleted": true,
+    "CreatedAt": "2025-09-29T07:00:00Z",
+    "CompletedAt": "2025-09-29T07:45:00Z"
+  },
+  {
+    "Id": 5,
+    "Title": "Read a book",
+    "Description": "Chapter 5 of 'The Hitchhiker's Guide to the Galaxy'",
+    "IsCompleted": false,
+    "CreatedAt": "2025-09-29T20:00:00Z",
+    "CompletedAt": null
+  },
+  {
+    "Id": 6,
+    "Title": "Pay electricity bill",
+    "Description": "Due on the 1st of October",
+    "IsCompleted": false,
+    "CreatedAt": "2025-09-28T16:00:00Z",
+    "CompletedAt": null
+  },
+  {
+    "Id": 7,
+    "Title": "Clean the house",
+    "Description": "Vacuum and dust all rooms",
+    "IsCompleted": false,
+    "CreatedAt": "2025-09-26T13:00:00Z",
+    "CompletedAt": null
+  },
+  {
+    "Id": 8,
+    "Title": "Water the plants",
+    "Description": "",
+    "IsCompleted": true,
+    "CreatedAt": "2025-09-30T08:00:00Z",
+    "CompletedAt": "2025-09-30T08:05:00Z"
+  },
+  {
+    "Id": 9,
+    "Title": "Plan weekend trip",
+    "Description": "Look for hotels and book tickets",
+    "IsCompleted": false,
+    "CreatedAt": "2025-09-29T18:00:00Z",
+    "CompletedAt": null
+  },
+  {
+    "Id": 10,
+    "Title": "Learn a new skill",
+    "Description": "Start a C# tutorial on YouTube",
+    "IsCompleted": false,
+    "CreatedAt": "2025-09-25T10:00:00Z",
+    "CompletedAt": null
+  }
+]
