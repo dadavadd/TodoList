@@ -13,6 +13,7 @@ This application allows users to manage their tasks from the command line. Users
 - **View Todos**: Displays all tasks in a table with ID, Title, Description, Completion Status, and timestamps.
 - **Add Todo**: Add a new task with a title and description.
 - **Mark as Completed**: Mark an existing task as completed.
+- **Set Due Date**: Set a due date for a task.
 - **Delete Todo**: Remove a task from the list.
 - **Data Persistence**: Changes are automatically saved to `todoConfig.json` when the application exits.
 
@@ -56,6 +57,7 @@ This application allows users to manage their tasks from the command line. Users
 Once the application is running, you will be presented with a menu with the following options:
 - `Add`: Add a new todo item.
 - `Mark as completed`: Mark a todo as completed.
+- `Set Due Date`: Set a due date for a task.
 - `Delete`: Delete a todo.
 - `Exit`: Exit the application and save changes.
 
