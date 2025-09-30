@@ -2,7 +2,7 @@
 
 A simple and interactive console-based Todo list application built with .NET and C#.
 
-![Application Screenshot](https://github.com/user-attachments/assets/876f03bd-6a1a-41ed-91b1-ea09c086fb9d) 
+![Application Screenshot](https://github.com/user-attachments/assets/c8f2ceb2-d291-4ff8-9a7c-db7eae1bd069) 
 
 ## Description
 
