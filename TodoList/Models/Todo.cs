@@ -18,6 +18,7 @@ public class Todo
     public static Todo Create(string title, string description, DateTime? dueAt = null)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(title, nameof(title));
+        ArgumentException.ThrowIfNullOrWhiteSpace(description, nameof(description));
 
         return new()
         {
@@ -47,6 +48,9 @@ public class Todo
     {
         if (dueDate < CreatedAt)
             throw new ArgumentException("Due date cannot be earlier than the creation date.", nameof(dueDate));
+
+        if (dueDate == DateTime.MinValue)
+            throw new ArgumentException("Due date cannot be DateTime.MinValue.", nameof(dueDate));
 
         DueAt = dueDate;
     }

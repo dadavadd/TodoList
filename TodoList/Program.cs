@@ -2,21 +2,23 @@ using Spectre.Console;
 using TodoList;
 using TodoList.Models;
 
-const string AddOption = "Add";
-const string MarkAsCompletedOption = "Mark as completed";
-const string SetDueDateOption = "Set Due Date";
-const string DeleteOption = "Delete";
-const string ExitOption = "Exit";
+using static TodoList.Resources.Literals;
 
-Console.Title = "Todo List Application";
-
-try
-{
-    Console.SetWindowSize(150, 30);
-}
-catch (IOException) { }
+Console.Title = ConsoleTitle;
+Console.SetWindowSize(150, 30);
 
 var todoService = new TodoService();
+
+AppDomain.CurrentDomain.UnhandledException += (o, e) =>
+{
+    if (e.ExceptionObject is Exception exception)
+    {
+        AnsiConsole.WriteException(exception, ExceptionFormats.ShortenEverything | ExceptionFormats.ShowLinks);
+        todoService.SaveChanges();
+        AnsiConsole.Confirm("[red]Press any key to exit...[/]");
+        Environment.Exit(1);
+    }
+};
 
 while (true)
 {
@@ -29,30 +31,28 @@ while (true)
             .Title("[red]What do you want to do?[/]")
             .PageSize(10)
             .HighlightStyle(new(foreground: Color.Yellow, decoration: Decoration.Bold))
-            .AddChoices(
-            [
-                AddOption, MarkAsCompletedOption, SetDueDateOption, DeleteOption, ExitOption
-            ]));
+            .AddChoices([AddOption, MarkAsCompletedOption, SetDueDateOption, DeleteOption, ExitOption]));
 
     switch (choice)
     {
-        case AddOption:
+        case var opt when opt == AddOption:
             AddTodo();
             break;
-        case MarkAsCompletedOption:
+        case var opt when opt == MarkAsCompletedOption:
             MarkTodoAsCompleted();
             break;
-        case SetDueDateOption:
+        case var opt when opt == SetDueDateOption:
             SetDueDate();
             break;
-        case DeleteOption:
+        case var opt when opt == DeleteOption:
             DeleteTodo();
             break;
-        case ExitOption:
+        case var opt when opt == ExitOption:
             todoService.SaveChanges();
             return;
     }
 }
+
 
 void DisplayTodos(List<Todo> todos)
 {
@@ -87,28 +87,14 @@ void AddTodo()
 {
     var title = AnsiConsole.Ask<string>("What is the title of the new todo?");
     var description = AnsiConsole.Ask<string>("What is the description of the new todo?");
-    var dueAtInput = AnsiConsole.Ask<string>("What is the due date of the new todo? (optional, format: yyyy-MM-dd HH:mm) or leave empty");
+    var dueAtInput = AnsiConsole.Ask<string>("What is the due date of the new todo? (optional, format: yyyy-MM-dd HH:mm) or input something shit:");
 
     DateTime? dueAt = null;
-    if (!string.IsNullOrWhiteSpace(dueAtInput) && DateTime.TryParse(dueAtInput, out var parsedDueAt))
-    {
-        dueAt = parsedDueAt;
-    }
-    else if (!string.IsNullOrWhiteSpace(dueAtInput))
-    {
-        AnsiConsole.MarkupLine("[red]Invalid date format. Due date was not set.[/]");
-        AnsiConsole.Confirm("Press any key to continue...");
-    }
 
-    try
-    {
-        todoService.AddTodo(title, description, dueAt);
-    }
-    catch (ArgumentException ex)
-    {
-        AnsiConsole.MarkupLine($"[red]Error: {ex.Message}[/]");
-        AnsiConsole.Confirm("Press any key to continue...");
-    }
+    if (DateTime.TryParse(dueAtInput, out var parsedDueAt))
+        dueAt = parsedDueAt != DateTime.MinValue ? parsedDueAt : null;
+    
+    todoService.AddTodo(title, description, dueAt);
 }
 
 void SetDueDate()
@@ -125,21 +111,12 @@ void SetDueDate()
 
     if (DateTime.TryParse(dueAtInput, out var dueAt))
     {
-        try
-        {
-            todoService.SetDueDate(todoToUpdate, dueAt);
-        }
-        catch (ArgumentException ex)
-        {
-            AnsiConsole.MarkupLine($"[red]Error: {ex.Message}[/]");
-            AnsiConsole.Confirm("Press any key to continue...");
-        }
+        todoService.SetDueDate(todoToUpdate, dueAt);
+        return;
     }
-    else
-    {
-        AnsiConsole.MarkupLine("[red]Invalid date format.[/]");
-        AnsiConsole.Confirm("Press any key to continue...");
-    }
+
+    AnsiConsole.MarkupLine("[red]Invalid date format.[/]");
+    AnsiConsole.Confirm("Press any key to continue...");
 }
 
 void MarkTodoAsCompleted()
